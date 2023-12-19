@@ -1,0 +1,17 @@
+---
+// Import your components here
+
+import LogoHero from "../components/LogoHero.jsx";
+import { storyblokEditable } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+---
+
+<section {...storyblokEditable(blok)}>
+  <LogoHero
+    header={blok.header}
+    subheader={blok.subheader}
+    button_text={blok.button_text}
+    client:load
+  />
+</section>
