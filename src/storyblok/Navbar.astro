@@ -1,0 +1,25 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+import { motion } from "framer-motion";
+const { blok } = Astro.props;
+---
+
+<div {...storyblokEditable(blok)}>
+  <nav
+    class="mx-[24rem] mt-6 bg-white/30 backdrop-blur-lg rounded-full fixed top-0 left-0 right-0 z-50 px-4 py-4 shadow-md flex justify-between items-center"
+  >
+    <div class="flex items-center">
+      <img src="/slashlogo.jpeg" alt="Logo" class="h-8 w-8 mr-2 rounded-full" />
+      <p class="font-semibold text-2xl">{blok.logo_name}</p>
+    </div>
+    <div class="hidden md:flex space-x-8">
+      {
+        blok.links?.map((blok) => {
+          return <StoryblokComponent blok={blok} />;
+        })
+      }
+    </div>
+  </nav>
+</div>
