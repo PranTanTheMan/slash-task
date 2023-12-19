@@ -2,6 +2,8 @@ import { defineConfig } from "astro/config";
 import storyblok from "@storyblok/astro";
 import { loadEnv } from "vite";
 import tailwind from "@astrojs/tailwind";
+import react from "@astrojs/react";
+
 // import basicSsl from "@vitejs/plugin-basic-ssl";
 const env = loadEnv("", process.cwd(), "STORYBLOK");
 
@@ -21,9 +23,12 @@ export default defineConfig({
         page: "storyblok/Page",
         navbar: "storyblok/Navbar",
         links: "storyblok/Links",
+        hero: "storyblok/Hero",
+        footer: "storyblok/Footer",
       },
     }),
     tailwind(),
+    react(),
   ],
   // vite: {
   //   plugins: [basicSsl()],
