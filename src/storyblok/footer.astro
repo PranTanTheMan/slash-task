@@ -1,0 +1,26 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+---
+
+<footer
+  class="bg-white text-black border border-zinc-950 h-2xl"
+  {...storyblokEditable(blok)}
+>
+  <div class="max-w-6xl mx-auto px-4 py-8 flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="/slashlogo.jpeg" alt="Logo" class="h-10 mr-3" />
+      <span class="font-bold text-lg">{blok.logo}</span>
+    </div>
+    <div class="flex space-x-4">
+      <!-- <a href="/about" class="hover:text-gray-800">About</a> -->
+      {
+        blok.links?.map((blok) => {
+          return <StoryblokComponent blok={blok} />;
+        })
+      }
+    </div>
+  </div>
+</footer>
