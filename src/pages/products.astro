@@ -1,3 +1,70 @@
 ---
-import { Card } from "@nextui-org/react";
+import React from "react";
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/footer";
+import Navbar from "../components/navbar";
+
+import PricingRange from "../components/PricingRange";
+import RatingRange from "../components/RatingRange";
+
+const response = await fetch(`https://slash-backend.onrender.com/product`);
+
+const products = await response.json();
+
+import { Button } from "@nextui-org/react";
 ---
+
+<Layout title="Slash | Products">
+  <Navbar />
+  <div class="my-36 h-screen">
+    <h1 class="text-4xl mb-8 font-bold text-center">Products Page</h1>
+    <!-- <div class="flex flex-row"> -->
+    <aside
+      class="border border-zinc-900 h-[5rem] w-1/3 mx-auto rounded-lg shadow-md"
+    >
+      <div class="flex flex-row justify-center h-full items-center">
+        <div class="text-4xl font-semibold mr-8">Filter</div>
+        <PricingRange client:load />
+        <RatingRange client:load />
+      </div>
+    </aside>
+    <div class="mt-20 mx-24">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {
+          products.data.map((product) => (
+            <div class="product-card bg-white shadow-lg rounded-lg p-4">
+              <img
+                src={
+                  product.ProductVariations[0].ProductVarientImages[0]
+                    .image_path
+                }
+                alt={product.name}
+                class="w-full h-72 object-cover rounded-md "
+              />
+              <div class="p-4">
+                <h2 class="text-lg font-bold">{product.name}</h2>
+                <p class="text-sm text-gray-600">{product.description}</p>
+                <p class="text-md font-semibold">
+                  Price: ${product.ProductVariations[0].price}
+                </p>
+                <p class="text-md">Rating: {product.product_rating} / 5</p>
+                <p class="text-md">Category: {product.SubCategories.name}</p>
+              </div>
+              <Button
+                client:load
+                color="default"
+                variant="shadow"
+                className="w-full"
+              >
+                Add to Cart
+              </Button>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+  <div class="mt-[30rem]"></div>
+  <Footer />
+</Layout>
